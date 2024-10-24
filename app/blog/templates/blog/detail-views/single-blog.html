@@ -1,0 +1,234 @@
+{% extends "default/base.html" %}
+{% load static %}
+
+{% block title %}{{title}}{% endblock %}
+
+
+{% block style %}
+    <link rel="stylesheet" href="{% static "assets/css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "assets/css/owl.carousel.min.css" %}">
+    <link rel="stylesheet" href="{% static "assets/css/slicknav.css" %}">
+    <link rel="stylesheet" href="{% static "assets/css/animate.min.css" %}">
+    <link rel="stylesheet" href="{% static "assets/css/magnific-popup.css" %}">
+    <link rel="stylesheet" href="{% static "assets/css/fontawesome-all.min.css" %}">
+    <link rel="stylesheet" href="{% static "assets/css/themify-icons.css" %}">
+    <link rel="stylesheet" href="{% static "assets/css/slick.css" %}">
+    <link rel="stylesheet" href="{% static "assets/css/nice-select.css" %}">
+    <link rel="stylesheet" href="{% static "assets/css/style.css" %}">
+    <link rel="stylesheet" href="{% static "assets/css/responsive.css" %}">
+{% endblock %}
+
+{% block content %}
+<section class="blog_area single-post-area section-padding">
+   <div class="container">
+      <div class="row">
+         <div class="col-lg-8 posts-list">
+            <div class="single-post">
+               <div class="feature-img">
+                  {% if blogItem.image %}
+                     <img class="img-fluid" src="{{blogItem.image.url}}" alt="">
+                  {% else %}
+                      <img class="img-fluid" src="https://www.energyfit.com.mk/wp-content/plugins/ap_background/images/default/default_large.png" alt="">
+                  {% endif %}
+               </div>
+               <div class="blog_details">
+                  <h2>{{blogItem.name}}
+                  </h2>
+                  <ul class="blog-info-link mt-3 mb-4">
+                        <li>
+                              <a href="#">
+                                 <i class="fa fa-user"></i>
+                                 {% for tagPost in blogItem.tagsPost %}
+                                    {% if tagPost == blogItem.tagsPost.last %}
+                                       {{tagPost}}
+                                    {% else %}
+                                       {{tagPost}},  
+                                    {% endif %}
+                                 {% endfor %}
+                              </a>
+                        </li>
+                     <li><a href="#"><i class="fa fa-comments"></i> {{ blogItem.counterMessage }} Comments</a></li>
+                  </ul>
+                  <p class="excert">
+                     {{ blogItem.description|slice:":400"|linebreaks }}
+                  </p>
+                  <div class="quote-wrapper">
+                     <div class="quotes">
+                        {{blogItem.description|truncatechars:'500'}}
+                     </div>
+                  </div>
+
+                  <p class="excert">
+                     {{ blogItem.description|slice:"400:"|linebreaks }}
+                  </p>
+               </div>
+            </div>
+            <div class="navigation-top">
+               <div class="d-sm-flex justify-content-between text-center">
+                  <p class="like-info"><span class="align-middle"><i class="fa fa-heart"></i></span> Lily and {{ blogItem.likes }}
+                     people like this</p>
+                  <div class="col-sm-4 text-center my-2 my-sm-0">
+                     <!-- <p class="comment-count"><span class="align-middle"><i class="fa fa-comment"></i></span> 06 Comments</p> -->
+                  </div>
+                  <ul class="social-icons">
+                     <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                     <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                     <li><a href="#"><i class="fab fa-dribbble"></i></a></li>
+                     <li><a href="#"><i class="fab fa-behance"></i></a></li>
+                  </ul>
+               </div>
+               <div class="navigation-area">
+                  <div class="row">
+                     <div
+                        class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
+                        <div class="thumb">
+                           <a href="#">
+                              <img class="img-fluid" src="assets/img/post/preview.png" alt="">
+                           </a>
+                        </div>
+                        <div class="arrow">
+                           <a href="#">
+                              <span class="lnr text-white ti-arrow-left"></span>
+                           </a>
+                        </div>
+                        <div class="detials">
+                           <p>Prev Post</p>
+                           <a href="#">
+                              <h4>Space The Final Frontier</h4>
+                           </a>
+                        </div>
+                     </div>
+                     <div
+                        class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
+                        <div class="detials">
+                           <p>Next Post</p>
+                           <a href="#">
+                              <h4>Telescopes 101</h4>
+                           </a>
+                        </div>
+                        <div class="arrow">
+                           <a href="#">
+                              <span class="lnr text-white ti-arrow-right"></span>
+                           </a>
+                        </div>
+                        <div class="thumb">
+                           <a href="#">
+                              <img class="img-fluid" src="assets/img/post/next.png" alt="">
+                           </a>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="blog-author">
+               <div class="media align-items-center">
+                  <img src="assets/img/blog/author.png" alt="">
+                  <div class="media-body">
+                     <a href="#">
+                        <h4>Harvard milan</h4>
+                     </a>
+                     <p>Second divided from form fish beast made. Every of seas all gathered use saying you're, he
+                        our dominion twon Second divided from</p>
+                  </div>
+               </div>
+            </div>
+            <div class="comments-area">
+               <h4>{{blogItem.counterMessage}} Comments</h4>
+               {% for message in blogItem.objectMessage %}
+                  <div class="comment-list">
+                  <div class="single-comment justify-content-between d-flex">
+                     <div class="user justify-content-between d-flex">
+                        <div class="thumb">
+                           {% if message.profile.image_user %}
+                              <img src="{{message.profile.image_user.url}}" alt="">   
+                           {% else %}
+                              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOtu74pEiq7ofeQeTsco0migV16zZoBwSlGg&s" alt="">
+                           {% endif %}
+                        </div>
+                        <div class="desc">
+                           <p class="comment">
+                              {{message.name}}
+                           </p>
+                           <div class="d-flex justify-content-between">
+                              <div class="d-flex align-items-center">
+                                 <h5>
+                                    <a href="#">{{message.profile.user}}</a>
+                                 </h5>
+                                 <p class="date">{{message.created_at|date:"j, Y \a\\t g:i a"}} </p>
+                              </div>
+                              <div class="reply-btn">
+                                 <a href="#" class="btn-reply text-uppercase">reply</a>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  </div>
+               {% endfor %}
+            </div>
+            <div class="comment-form">
+               <h4>Leave a Reply</h4>
+               <form class="form-contact comment_form" action="{% url 'blog:add-comment' blogItem.slug %}" id="commentForm" method='post'>
+                  {% csrf_token %}
+                  <div class="row">
+                     <div class="col-sm-6">
+                        <div class="form-group">
+                           {% for f in form %}
+                              {{f}}
+                           {% endfor %}
+                        </div>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <button type="submit" class="button button-contactForm btn_1 boxed-btn">Send Message</button>
+                  </div>
+               </form>
+            </div>
+         </div>
+         
+         {% include 'blog/includes/aside.html' %}
+      </div>
+   </div>
+</section>
+
+ 
+{% endblock content %}
+
+{% block scripts %}
+    <!-- All JS Custom Plugins Link Here here -->
+    <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
+    <script src="./assets/js/bootstrap.min.js"></script>
+  <script src="./assets/js/popper.min.js"></script>
+  <script src="./assets/js/bootstrap.min.js"></script>
+   <!-- Jquery Mobile Menu -->
+  <script src="./assets/js/jquery.slicknav.min.js"></script>
+
+    <!-- Jquery Slick , Owl-Carousel Plugins -->
+  <script src="./assets/js/owl.carousel.min.js"></script>
+  <script src="./assets/js/slick.min.js"></script>
+  <!-- Date Picker -->
+  <script src="./assets/js/gijgo.min.js"></script>
+    <!-- One Page, Animated-HeadLin -->
+  <script src="./assets/js/wow.min.js"></script>
+    <script src="./assets/js/animated.headline.js"></script>
+  <script src="./assets/js/jquery.magnific-popup.js"></script>
+
+    <!-- Scrollup, nice-select, sticky -->
+  <script src="./assets/js/jquery.scrollUp.min.js"></script>
+  <script src="./assets/js/jquery.nice-select.min.js"></script>
+    <script src="./assets/js/jquery.sticky.js"></script>
+    
+    <!-- contact js -->
+    <script src="./assets/js/contact.js"></script>
+    <script src="./assets/js/jquery.form.js"></script>
+    <script src="./assets/js/jquery.validate.min.js"></script>
+    <script src="./assets/js/mail-script.js"></script>
+    <script src="./assets/js/jquery.ajaxchimp.min.js"></script>
+    
+    <!-- Jquery Plugins, main Jquery -->	
+    <script src="./assets/js/plugins.js"></script>
+    <script src="./assets/js/main.js"></script>
+{% endblock %}
+
+
+

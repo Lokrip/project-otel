@@ -1,0 +1,149 @@
+{% extends "default/base.html" %}
+{% load static %}
+{% load blog-tags %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static "assets/css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "assets/css/owl.carousel.min.css" %}">
+    <link rel="stylesheet" href="{% static "assets/css/ticker-style.css" %}">
+    <link rel="stylesheet" href="{% static "assets/css/flaticon.css" %}">
+    <link rel="stylesheet" href="{% static "assets/css/slicknav.css" %}">
+    <link rel="stylesheet" href="{% static "assets/css/animate.min.css" %}">
+    <link rel="stylesheet" href="{% static "assets/css/magnific-popup.css" %}">
+    <link rel="stylesheet" href="{% static "assets/css/fontawesome-all.min.css" %}">
+    <link rel="stylesheet" href="{% static "assets/css/themify-icons.css" %}">
+    <link rel="stylesheet" href="{% static "assets/css/slick.css" %}">
+    <link rel="stylesheet" href="{% static "assets/css/nice-select.css" %}">
+    <link rel="stylesheet" href="{% static "assets/css/style.css" %}">
+{% endblock %}
+
+
+{% block content %}
+<section class="blog_area section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mb-5 mb-lg-0">
+                <div class="blog_left_sidebar">
+                    <!--Предметы-->
+                    {% if blogList %}
+                        {% for blogItem in blogList %}
+                            <article class="blog_item">
+                                <div class="blog_item_img">
+                                    {% if blogItem.image %}
+                                        <img class="card-img rounded-0" src="{{blogItem.image.url}}" alt="">
+                                    {% else %}
+                                        <img class="card-img rounded-0" src="https://www.energyfit.com.mk/wp-content/plugins/ap_background/images/default/default_large.png" alt="">
+                                    {% endif %}
+                                    <a href="#" class="blog_item_date">
+                                        <h3>15</h3>
+                                        <p>Jan</p>
+                                    </a>
+                                </div>
+                                <div class="blog_details">
+                                    <a class="d-inline-block" href="{{blogItem.get_absolute_url}}">
+                                        <h2>{{blogItem.name}}</h2>
+                                    </a>
+                                    <p>{{blogItem.description|truncatechars:'150'}}</p>
+                                    <ul class="blog-info-link">
+                                        <li><a href="#"><i class="fa fa-user"></i> Travel, Lifestyle</a></li>
+                                        <li><a href="#"><i class="fa fa-comments"></i> {{blogItem.counterMessage}} Comments</a></li>
+                                    </ul>
+                                </div>
+                            </article>
+                        {% endfor %}
+                    {% else %}
+                        <article class="blog_item">
+                            <div class="quote-wrapper">
+                                <div class="quotes">
+                                    <h1 style="text-align: center;">Блоги Отсутствуют</h1>
+                                </div>
+                             </div>
+                        </article>
+                    {% endif %}
+                    
+                    <!--Погинация-->
+                    <nav class="blog-pagination justify-content-center d-flex">
+                            <ul class="pagination">
+                                {% if page_obj.has_previous  %}
+                                <li class="page-item">
+                                    <a href="?{% change_params page=page_obj.previous_page_number %}" class="page-link" aria-label="Previous">
+                                        <i class="ti-angle-left"></i>
+                                    </a>
+                                </li>
+                                {% else %}
+                                <li class="page-item disabled">
+                                    <a href="#" class="page-link" aria-label="Previous">
+                                        <i class="ti-angle-left"></i>
+                                    </a>
+                                </li> 
+                                {% endif %}
+                                
+                                {% for page in page_obj.paginator.page_range %}
+                                    {% if page <= page_obj.number|add:+2 and page >= page_obj.number|add:-2 %}    
+                                        <li class="page-item">
+                                            <a href="?{% change_params page=page %}" class="page-link" {% if page_obj.number == page %}style="color: #fd7e14;"{% endif %}>{{page}}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% if page_obj.has_next  %}
+                                <li class="page-item">
+                                    <a href="?{% change_params page=page_obj.next_page_number %}" class="page-link" aria-label="Next">
+                                        <i class="ti-angle-right"></i>
+                                    </a>
+                                </li>
+                                {% else %}
+                                <li class="page-item disabled">
+                                    <a href="#" class="page-link" aria-label="Next">
+                                        <i class="ti-angle-right"></i>
+                                    </a>
+                                </li> 
+                                {% endif %}
+                            </ul>
+                    </nav>
+                </div>
+            </div>
+
+            {% include 'blog/includes/aside.html' %}
+        </div>
+    </div>
+</section>
+{% endblock content %}
+
+{% block scripts %}
+    <!-- All JS Custom Plugins Link Here here -->
+    <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
+    <!-- Jquery, Popper, Bootstrap -->
+    <script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="./assets/js/popper.min.js"></script>
+    <script src="./assets/js/bootstrap.min.js"></script>
+    <!-- Jquery Mobile Menu -->
+    <script src="./assets/js/jquery.slicknav.min.js"></script>
+
+    <!-- Jquery Slick , Owl-Carousel Plugins -->
+    <script src="./assets/js/owl.carousel.min.js"></script>
+    <script src="./assets/js/slick.min.js"></script>
+
+    <!-- One Page, Animated-HeadLin -->
+    <script src="./assets/js/wow.min.js"></script>
+    <script src="./assets/js/animated.headline.js"></script>
+    
+    <!-- Scrollup, nice-select, sticky -->
+    <script src="./assets/js/jquery.scrollUp.min.js"></script>
+    <script src="./assets/js/jquery.nice-select.min.js"></script>
+    <script src="./assets/js/jquery.sticky.js"></script>
+    <script src="./assets/js/jquery.magnific-popup.js"></script>
+
+    <!-- contact js -->
+    <script src="./assets/js/contact.js"></script>
+    <script src="./assets/js/jquery.form.js"></script>
+    <script src="./assets/js/jquery.validate.min.js"></script>
+    <script src="./assets/js/mail-script.js"></script>
+    <script src="./assets/js/jquery.ajaxchimp.min.js"></script>
+    
+    <!-- Jquery Plugins, main Jquery -->	
+    <script src="./assets/js/plugins.js"></script>
+    <script src="./assets/js/main.js"></script>
+{% endblock %}
